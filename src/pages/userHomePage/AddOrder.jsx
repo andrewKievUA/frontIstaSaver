@@ -1,17 +1,24 @@
 import "./AddOrder.css";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { connect } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import Alert from "@mui/material/Alert";
 
-function AddOrder() {
+function AddOrder({ cartNumber, name }) {
   let navigate = useNavigate();
   const routeChange = () => {
     let path = `/Login`;
     navigate(path);
   };
+
+  const [copi, setCopi] = React.useState({
+    value: "",
+    copied: false,
+  });
 
   const {
     register,
@@ -30,55 +37,36 @@ function AddOrder() {
       body: JSON.stringify({ ...data }),
     });
     let result = await response.json();
-
-    result.message === "Такой пользователь уже существует"
-      ? setEmailExist(true)
-      : setEmailExist(false);
-    result.message === "пользователь создан"
-      ? setEmailCheck(true)
-      : setEmailCheck(false);
-
-   
-    setTimeout(()=>{navigate(`/Login`)}, 10000);
-
     console.log(result.message);
   };
 
   return (
     <div>
-      Регистрация
       <form onSubmit={handleSubmit(onSubmit)}>
-        <label>Email</label>
-        <input type="email" {...register("email", { required: true })} />
-        {errors.email ? (
-          <label className="labelred">Заполните поле</label>
-        ) : (
-          <></>
-        )}
-        {emailExist && (
-          <Alert severity="error">
-            Пользователь с таким Email уже существует
-          </Alert>
-        )}
-        {emailCheck && (
-          <Alert severity="success">
-            Пользователь Создан. Пожалуйста проверьте вашу почту и перейдите по
-            ссылке для окончания регистрации. Если письма нету проверьте спам или
-            вкладку рассылки
-          </Alert>
-        )}
+        <label>ссылка на товар</label>
+        <input type="email" {...register("text", { required: true })} />
 
-        <label>Password</label>
+        <label>Фамилия</label>
         <input
-          type="password"
-          {...register("password", {
+          type="name"
+          {...register("text", {
+            required: true,
+            minLength: 6,
+            maxLength: 99,
+          })}
+        />
+        
+        <label> Имя</label>
+        <input
+          type="name"
+          {...register("text", {
             required: true,
             minLength: 6,
             maxLength: 99,
           })}
         />
 
-        <label>Номер банковской Карты (необходим для оплаты клиентами)</label>
+        <label>Город</label>
         <input
           type="text"
           {...register("cartNumber", {
@@ -87,7 +75,7 @@ function AddOrder() {
           })}
         />
 
-        <label>Фамилия И.О  (от карты необходима для оплаты)</label>
+        <label>Отделение Новой Почты</label>
         <input
           type="text"
           {...register("name", {
@@ -98,18 +86,35 @@ function AddOrder() {
         {errors.password ? (
           <label className="labelred">Заполните поле минимум 6 символов</label>
         ) : (
-          <br />
+          <></>
         )}
-        <br />
 
-        <input type="submit" title="sdf" value="Регистрация" />
-        <button type="button" onClick={routeChange}>
-          {" "}
-          я уже зарегистрирован и у меня есть аккаунт{" "}
-        </button>
+        <label>Телефон</label>
+        <input
+          type="phone"
+          
+          {...register("cartNumber", {
+            
+            minLength: 6,
+            maxLength: 99,
+          })}
+        />
+
+        <label className="center">Реквизиты для оплаты {cartNumber} </label>
+
+        <label className="center" > на имя {name} </label>
+        <label className="center"> не забудьте проинформировать после оплаты </label>
+        <input type="submit" title="sdf" value="Создать  заказ" />
       </form>
     </div>
   );
 }
 
-export default AddOrder;
+function mapStateToProps(state) {
+  const { cartNumber, name } = state;
+
+  return { cartNumber, name };
+  //return { todoList: todos.allIds }
+}
+
+export default connect(mapStateToProps, null)(AddOrder);
