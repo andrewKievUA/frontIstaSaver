@@ -132,14 +132,15 @@ input[type="submit"] {
   margin: 0 auto;
 }
 
-button[type="button"] {
+button[type="button2"] {
   display: block;
   appearance: none;
   background: grey;
   color: white;
   border: none;
   text-transform: uppercase;
-  padding: 10px 20px;
+  padding: 10px 10px;
+  margin-top: 10px;
   border-radius: 4px;
   margin-left: 5%;
   width: 90%;
@@ -154,7 +155,7 @@ button {
   appearance: none;
   margin-top: 40px;
   border: 1px solid #333;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   text-transform: uppercase;
   padding: 10px 20px;
   border-radius: 4px;

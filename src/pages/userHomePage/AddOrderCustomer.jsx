@@ -1,15 +1,16 @@
-import "./AddOrder.css";
-import React from "react";
 import { useForm } from "react-hook-form";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-function AddOrder({ cartNumber, name,userId }) {
+
+function AddOrder({ cartNumber, name }) {
   let navigate = useNavigate();
   const routeChange = () => {
     let path = `/Login`;
     navigate(path);
   };
+
+
 
   const {
     register,
@@ -17,18 +18,15 @@ function AddOrder({ cartNumber, name,userId }) {
     formState: { errors },
   } = useForm();
 
-  console.log(errors);
 
   const onSubmit = async (data) => {
-    let response = await fetch("http://localhost:5000/api/AddOrder", {
+    let response = await fetch("http://localhost:5000/api/auth/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
       },
-      body: JSON.stringify({ ...data,userId }),
+      body: JSON.stringify({ ...data }),
     });
-
-    console.log({ ...data });
     let result = await response.json();
     console.log(result.message);
   };
@@ -37,25 +35,24 @@ function AddOrder({ cartNumber, name,userId }) {
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>ссылка на товар</label>
-        <input
-          type="text"
-          {...register("instaLinkGoods", { required: true })}
-        />
+        <input type="email" {...register("text", { required: true })} />
 
-        <label> Имя</label>
+        <label>Фамилия</label>
         <input
-          type="text"
-          {...register("firstName", {
+          type="name"
+          {...register("text", {
+            required: true,
+            minLength: 6,
             maxLength: 99,
           })}
         />
-
-
-
-            <label>Фамилия</label>
+        
+        <label> Имя</label>
         <input
-          type="text"
-          {...register("lastName", {
+          type="name"
+          {...register("text", {
+            required: true,
+            minLength: 6,
             maxLength: 99,
           })}
         />
@@ -63,7 +60,8 @@ function AddOrder({ cartNumber, name,userId }) {
         <label>Город</label>
         <input
           type="text"
-          {...register("city", {
+          {...register("cartNumber", {
+            minLength: 6,
             maxLength: 99,
           })}
         />
@@ -71,7 +69,8 @@ function AddOrder({ cartNumber, name,userId }) {
         <label>Отделение Новой Почты</label>
         <input
           type="text"
-          {...register("postNumer", {
+          {...register("name", {
+            minLength: 6,
             maxLength: 99,
           })}
         />
@@ -84,19 +83,18 @@ function AddOrder({ cartNumber, name,userId }) {
         <label>Телефон</label>
         <input
           type="phone"
-          {...register("telephone", {
-         
+          
+          {...register("cartNumber", {
+            
+            minLength: 6,
             maxLength: 99,
           })}
         />
 
         <label className="center">Реквизиты для оплаты {cartNumber} </label>
 
-        <label className="center"> на имя {name} </label>
-        <label className="center">
-          {" "}
-          не забудьте проинформировать после оплаты{" "}
-        </label>
+        <label className="center" > на имя {name} </label>
+        <label className="center"> не забудьте проинформировать после оплаты </label>
         <input type="submit" title="sdf" value="Создать  заказ" />
       </form>
     </div>
@@ -104,10 +102,9 @@ function AddOrder({ cartNumber, name,userId }) {
 }
 
 function mapStateToProps(state) {
-  console.log(state);
-  const { cartNumber, name, userId } = state;
+  const { cartNumber, name } = state;
 
-  return { cartNumber, name,userId };
+  return { cartNumber, name };
   //return { todoList: todos.allIds }
 }
 

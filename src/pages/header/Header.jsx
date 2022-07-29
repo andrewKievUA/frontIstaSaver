@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
-const pages2 = [{name:'Вход', path:"/Login"}, {name:'Регистр', path:"/Register"}, {name:'Выход', path:"/Logout"}];
+const pages2 = [{name:'Дом', path:"/userHomePage"},{name:'Вход', path:"/Login"}, {name:'Регистр', path:"/Register"}, {name:'Выход', path:"/Logout"}];
 const pages = ['Register','Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 

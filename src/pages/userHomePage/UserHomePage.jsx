@@ -3,6 +3,8 @@ import React from "react";
 
 import { connect } from "react-redux";
 import AddOrder from "./AddOrder";
+import AddOrderTable from "./AddOrderTable";
+
 import { useNavigate } from "react-router-dom";
 
 function UserHomePage({ email, confirmed }) {
@@ -16,14 +18,16 @@ function UserHomePage({ email, confirmed }) {
   return (
     <div>
 
-      <button type="button" onClick={routeChange}> Создать заказ</button>
-      <button>
+      <button type="button2" onClick={routeChange} > Создать заказ</button>
+      <button type="button2">
         {" "}
         {email || null}
         {confirmed
           ? null
           : "    Пожалуйста проверьте вашу почту и перейдите по ссылке для окнчания регистрации. Если письма нету проверьте спам или вкладку рассылки"}
       </button>
+
+      <AddOrderTable/>
 
     
     </div>

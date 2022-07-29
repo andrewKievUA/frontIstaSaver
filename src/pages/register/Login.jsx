@@ -93,12 +93,12 @@ function Login({login,dispatch}) {
         <br />
         <input type="submit" title="sdf" value="Вход в аккаунт" />
 
-        <button type="button" onClick={routeChange}>
+        <button type="button2" onClick={routeChange}>
         
           я не зарегистрирован и у меня нету аккаунта
         </button>
 
-        <button type="button" onClick={routeChange}>
+        <button type="button2" onClick={routeChange}>
           я забыл пароль
         </button>
 
