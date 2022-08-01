@@ -15,10 +15,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 
 import { useNavigate } from "react-router-dom";
 
-
-
 const pages2 = [{name:'Дом', path:"/userHomePage"},{name:'Вход', path:"/Login"}, {name:'Регистр', path:"/Register"}, {name:'Выход', path:"/Logout"}];
-const pages = ['Register','Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const ResponsiveAppBar = () => {
@@ -32,31 +29,30 @@ const ResponsiveAppBar = () => {
   };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
-    navigate("/userHomePage")
- 
+    navigate("/userHomePage") 
   };
 
   const handleCloseNavMenu = (e) => {
     setAnchorElNav(null);
+    navigate("/userHomePage")
 
   };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+    navigate("/userHomePage")
   };
 
   return (
     <AppBar position="static">
-
-
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar disableGutters >
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            href="/userHomePage"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -69,10 +65,7 @@ const ResponsiveAppBar = () => {
           >
             LOGO
 
-
-
           </Typography>
-
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -104,7 +97,7 @@ const ResponsiveAppBar = () => {
             >
               {pages2.map((page) => (
                 <MenuItem key={page.name} onClick={()=>{
-                  handleCloseNavMenu();
+                  console.log(page.path)
                     navigate(page.path)
                   }}>
                   <Typography textAlign="center">{page.name}</Typography>

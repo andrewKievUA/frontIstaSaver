@@ -1,15 +1,19 @@
-import "./AddOrder.css";
+
 import React from "react";
 import { useForm } from "react-hook-form";
 import { connect } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
-function AddOrder({ cartNumber, name, userId }) {
+
+import { useNavigate,useParams } from "react-router-dom";
+
+function OrderDetails({ cartNumber, name, userId }) {
+
   let navigate = useNavigate();
-  const routeChange = () => {
-    let path = `/Login`;
-    navigate(path);
-  };
+
+
+
+
+
 
   const {
     register,
@@ -97,10 +101,9 @@ function AddOrder({ cartNumber, name, userId }) {
 
         <label className="center"> на имя {name} </label>
         <label className="center">
-          {" "}
-          не забудьте проинформировать после оплаты{" "}
+
         </label>
-        <input type="submit" title="sdf" value="Создать  заказ" />
+        <input type="submit" title="sdf" value="Редактировать " />
       </form>
     </div>
   );
@@ -114,4 +117,4 @@ function mapStateToProps(state) {
   //return { todoList: todos.allIds }
 }
 
-export default connect(mapStateToProps, null)(AddOrder);
+export default connect(mapStateToProps, null)(OrderDetails);

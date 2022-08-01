@@ -7,18 +7,49 @@ import AddOrderTable from "./AddOrderTable";
 
 import { useNavigate } from "react-router-dom";
 
-function UserHomePage({ email, confirmed }) {
+function UserHomePage({ email, confirmed, userId, password }) {
   let navigate = useNavigate();
+  let [orders,setOrders]= React.useState([])
 
   const routeChange = () => {
     navigate(`/AddOrder`);
   };
 
 
+
+  const showOrder = async () => {
+    let response = await fetch("http://localhost:5000/api/showOrder", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify({ userId, email, confirmed, password }),
+    });
+
+    let result = await response.json();
+    setOrders(result.message)
+    console.log(result.message);
+  };
+
+  React.useEffect(() => {
+    showOrder()
+  },[]);
+
   return (
     <div>
+      
 
-      <button type="button2" onClick={routeChange} > Создать заказ</button>
+      <button type="button2" onClick={routeChange}>
+        {" "}
+        Создать заказ
+      </button>
+      <button type="button2" onClick={showOrder}>
+        {" "}
+        текущие заказы
+      </button>
+
+      <AddOrderTable orders={orders || []}/>
+
       <button type="button2">
         {" "}
         {email || null}
@@ -27,17 +58,15 @@ function UserHomePage({ email, confirmed }) {
           : "    Пожалуйста проверьте вашу почту и перейдите по ссылке для окнчания регистрации. Если письма нету проверьте спам или вкладку рассылки"}
       </button>
 
-      <AddOrderTable/>
-
-    
     </div>
   );
 }
 
 function mapStateToProps(state) {
-  const { email, confirmed } = state;
-  console.log(state, confirmed);
-  return { email, confirmed };
+  // console.log(state)
+  const { email, confirmed, userId, password } = state;
+
+  return { email, confirmed, userId };
   //return { todoList: todos.allIds }
 }
 
