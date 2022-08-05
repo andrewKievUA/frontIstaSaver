@@ -11,12 +11,6 @@ function UserHomePage({ email, confirmed, userId, password }) {
   let navigate = useNavigate();
   let [orders,setOrders]= React.useState([])
 
-  const routeChange = () => {
-    navigate(`/AddOrder`);
-  };
-
-
-
   const showOrder = async () => {
     let response = await fetch("http://localhost:5000/api/showOrder", {
       method: "POST",
@@ -39,14 +33,11 @@ function UserHomePage({ email, confirmed, userId, password }) {
     <div>
       
 
-      <button type="button2" onClick={routeChange}>
+      <button type="button2" onClick={()=>{navigate(`/AddOrder`)}}>
         {" "}
         Создать заказ
       </button>
-      <button type="button2" onClick={showOrder}>
-        {" "}
-        текущие заказы
-      </button>
+
 
       <AddOrderTable orders={orders || []}/>
 

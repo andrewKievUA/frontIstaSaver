@@ -27,11 +27,11 @@ const ResponsiveAppBar = ({name}) => {
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
-    navigate("/userHomePage")
+   // navigate("/userHomePage")
   };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
-    navigate("/userHomePage") 
+    //navigate("/userHomePage") 
   };
 
   const handleCloseNavMenu = (e) => {

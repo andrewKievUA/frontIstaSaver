@@ -34,75 +34,103 @@ function AddOrder({ cartNumber, name, userId }) {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label>ссылка на товар</label>
-        <input
-          type="text"
-          {...register("instaLinkGoods", { required: true })}
-        />
+    <>
+      <div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <label>ссылка на пользователя  ...заполняет Продавец</label>
+          <input
+            type="text"
+            {...register("instaLinkCustomer", { required: true })}
+          />
 
-        <label>ссылка на пользователя</label>
-        <input
-          type="text"
-          {...register("instaLinkCustomer", { required: true })}
-        />
+          <label>ссылки на товары  ...заполняет Продавец</label>
+          <input
+            type="text"
+            {...register("instaLinkGoods", { required: true })}
+          />
 
-        <label> Имя</label>
-        <input
-          type="text"
-          {...register("firstName", {
-            maxLength: 99,
-          })}
-        />
+          <input
+            type="text"
+            {...register("instaLinkGoods1")}
+          />
 
-        <label>Фамилия</label>
-        <input
-          type="text"
-          {...register("lastName", {
-            maxLength: 99,
-          })}
-        />
+          <input
+            type="text"
+            {...register("instaLinkGoods2")}
+          />
 
-        <label>Город</label>
-        <input
-          type="text"
-          {...register("city", {
-            maxLength: 99,
-          })}
-        />
+          <input
+            type="text"
+            {...register("instaLinkGoods3")}
+          />
 
-        <label>Отделение Новой Почты</label>
-        <input
-          type="text"
-          {...register("postNumer", {
-            maxLength: 99,
-          })}
-        />
-        {errors.password ? (
-          <label className="labelred">Заполните поле минимум 6 символов</label>
-        ) : (
-          <></>
-        )}
+          <label> Имя ...заполняет клиент</label>
+          <input
+            type="text"
+            {...register("firstName", {
+              maxLength: 99,
+            })}
+          />
 
-        <label>Телефон</label>
-        <input
-          type="phone"
-          {...register("telephone", {
-            maxLength: 99,
-          })}
-        />
+          <label>Фамилия  ...заполняет клиент</label>
+          <input
+            type="text"
+            {...register("lastName", {
+              maxLength: 99,
+            })}
+          />
 
-        <label className="center">Реквизиты для оплаты {cartNumber} </label>
+          <label>Город  ...заполняет клиент</label>
+          <input
+            type="text"
+            {...register("city", {
+              maxLength: 99,
+            })}
+          />
 
-        <label className="center"> на имя {name} </label>
-        <label className="center">
-          {" "}
-          не забудьте проинформировать после оплаты{" "}
-        </label>
-        <input type="submit" title="sdf" value="Создать  заказ" />
-      </form>
-    </div>
+          <label>Отделение Новой Почты  ...заполняет клиент</label>
+          <input
+            type="text"
+            {...register("postNumer", {
+              maxLength: 99,
+            })}
+          />
+          {errors.password ? (
+            <label className="labelred">
+              Заполните поле минимум 6 символов
+            </label>
+          ) : (
+            <></>
+          )}
+
+          <label>Телефон   ...заполняет клиент</label>
+          <input
+            type="phone"
+            {...register("telephone", {
+              maxLength: 99,
+            })}
+          />
+
+          <label>Цена   ...заполняет Продавец </label>
+          <input
+            type="text"
+            {...register("price", {
+              maxLength: 99,
+            })}
+          />
+
+          <label className="center">Реквизиты для оплаты {cartNumber} </label>
+
+          <label className="center"> на имя {name} </label>
+          <label className="center">
+            {" "}
+            не забудьте проинформировать после оплаты{" "}
+          </label>
+          <input type="submit" title="sdf" value="Создать  заказ" />
+        </form>
+      </div>
+      <button onClick={() => navigate(-1)}>Назад</button>
+    </>
   );
 }
 

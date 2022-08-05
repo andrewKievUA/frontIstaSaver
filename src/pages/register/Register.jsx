@@ -38,8 +38,9 @@ function Register() {
       ? setEmailCheck(true)
       : setEmailCheck(false);
 
-   
-    setTimeout(()=>{navigate(`/Login`)}, 10000);
+    setTimeout(() => {
+      navigate(`/Login`);
+    }, 10000);
 
     console.log(result.message);
   };
@@ -63,8 +64,8 @@ function Register() {
         {emailCheck && (
           <Alert severity="success">
             Пользователь Создан. Пожалуйста проверьте вашу почту и перейдите по
-            ссылке для окончания регистрации. Если письма нету проверьте спам или
-            вкладку рассылки
+            ссылке для окончания регистрации. Если письма нету проверьте спам
+            или вкладку рассылки
           </Alert>
         )}
 
@@ -87,7 +88,9 @@ function Register() {
           })}
         />
 
-        <label>Фамилия И.О  (от карты необходима для оплаты)</label>
+
+
+        <label>Фамилия И.О (от карты необходима для оплаты)</label>
         <input
           type="text"
           {...register("name", {
@@ -95,12 +98,17 @@ function Register() {
             maxLength: 99,
           })}
         />
-        {errors.password ? (
-          <label className="labelred">Заполните поле минимум 6 символов</label>
-        ) : (
-          <br />
-        )}
-        <br />
+
+
+
+        <label>Номер Телефона</label>
+        <input
+          type="text"
+          {...register("phone", {
+            minLength: 6,
+            maxLength: 99,
+          })}
+        />
 
         <input type="submit" title="sdf" value="Регистрация" />
         <button type="button" onClick={routeChange}>

@@ -36,10 +36,7 @@ const detailPage = async (_id, userId) => {
 export default function AddOrderTable({ orders }) {
   let navigate = useNavigate();
 
-  const orderDetailsNavigation = () => {
-    let path = `/OrderDetails`;
-    navigate(path);
-  };
+
 
   let ordersMap = orders || [];
 
@@ -58,20 +55,23 @@ export default function AddOrderTable({ orders }) {
 
         <TableBody>
           {ordersMap.map((row) => (
-            <TableRow
+            <TableRow 
+              onClick={() => navigate(`/OrderDetails/id:`+ row._id + ':'+ row.userId)}
+              style={row.arrived ===true?{backgroundColor: "grey" }: {backgroundColor: "white"}}
+                
+                
               key={Math.random()}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell
                 component="th"
                 scope="row"
-
-                onClick={() => navigate(`/OrderDetails/id:`+ row._id + ':'+ row.userId)}
               >
                 {row.firstName} {row.lastName}
               </TableCell>
-              <TableCell align="right">{row.city} </TableCell>
-              <TableCell align="right">{row.arrived}</TableCell>
+              <TableCell align="right" >{row.city} </TableCell>
+
+              <TableCell align="right">{row.arrived} </TableCell>
             </TableRow>
           ))}
         </TableBody>
