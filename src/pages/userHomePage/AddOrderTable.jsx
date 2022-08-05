@@ -66,7 +66,7 @@ export default function AddOrderTable({ orders }) {
                 component="th"
                 scope="row"
 
-                onClick={() => navigate(`/OrderDetails/id:`+ row._id)}
+                onClick={() => navigate(`/OrderDetails/id:`+ row._id + ':'+ row.userId)}
               >
                 {row.firstName} {row.lastName}
               </TableCell>

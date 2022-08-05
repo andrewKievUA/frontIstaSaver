@@ -14,11 +14,13 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
 import { useNavigate } from "react-router-dom";
+import { connect } from "react-redux";
 
 const pages2 = [{name:'Дом', path:"/userHomePage"},{name:'Вход', path:"/Login"}, {name:'Регистр', path:"/Register"}, {name:'Выход', path:"/Logout"}];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-const ResponsiveAppBar = () => {
+const ResponsiveAppBar = ({name}) => {
+  
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   let navigate = useNavigate();
@@ -34,13 +36,13 @@ const ResponsiveAppBar = () => {
 
   const handleCloseNavMenu = (e) => {
     setAnchorElNav(null);
-    navigate("/userHomePage")
+   // navigate("/userHomePage")
 
   };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
-    navigate("/userHomePage")
+    //navigate("/userHomePage")
   };
 
   return (
@@ -49,21 +51,21 @@ const ResponsiveAppBar = () => {
         <Toolbar disableGutters >
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
-            variant="h6"
+            variant="h8"
             noWrap
             component="a"
             href="/userHomePage"
             sx={{
-              mr: 2,
+              mr: 0,
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'monospace',
               fontWeight: 700,
-              letterSpacing: '.3rem',
+              letterSpacing: '.1rem',
               color: 'inherit',
               textDecoration: 'none',
             }}
           >
-            LOGO
+            {name ||" не зарегистрирован"}
 
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -109,7 +111,7 @@ const ResponsiveAppBar = () => {
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
-            variant="h5"
+            variant="h6"
             noWrap
             component="a"
             href=""
@@ -119,12 +121,12 @@ const ResponsiveAppBar = () => {
               flexGrow: 1,
               fontFamily: 'monospace',
               fontWeight: 700,
-              letterSpacing: '.3rem',
+              letterSpacing: '.1rem',
               color: 'inherit',
               textDecoration: 'none',
             }}
           >
-            LOGO
+            {name ||" не зарегистрирован"}
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages2.map((page) => (
@@ -178,34 +180,19 @@ const ResponsiveAppBar = () => {
     </AppBar>
   );
 };
-export default ResponsiveAppBar;
 
 
 
 
 
 
+function mapStateToProps(state) {
+  
+  const {  name } = state;
 
+  return {  name };
+  //return { todoList: todos.allIds }
+}
 
+export default connect(mapStateToProps, null)(ResponsiveAppBar);
 
-// import "./Header.css";
-// import React from "react";
-// import { Link } from "react-router-dom";
-
-
-// function Header() {
-
-//   return (
-//     <div>
-//       HOMEPAGE
-
-      // <nav>
-      //   <Link to="/">Home</Link> |{" "}
-      //   <Link to="Register">Register</Link>
-      // </nav>
-
-//     </div>
-//   );
-// }
-
-// export default Header;
