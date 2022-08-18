@@ -72,6 +72,7 @@ function OrderDetails({ name }) {
       setlinkGoods3(r.instaLinkGoods3);
       setpayed(r.payed);
       setarrived(r.arrived);
+      
     };
 
     const detailUser = async () => {
@@ -108,6 +109,7 @@ function OrderDetails({ name }) {
     console.log({ ...data });
     let result = await response.json();
     console.log(result.message);
+    navigate(-1)
   };
 
   const updateOrderField = async (inp) => {
@@ -244,11 +246,7 @@ function OrderDetails({ name }) {
             maxLength: 99,
           })}
         />
-        {errors.password ? (
-          <label className="labelred">Заполните поле минимум 6 символов</label>
-        ) : (
-          <></>
-        )}
+        
         <label>Телефон</label>
         <input
           type="phone"

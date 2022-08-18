@@ -47,9 +47,11 @@ export default function AddOrderTable({ orders }) {
       <Table sx={{ minWidth: 350 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell></TableCell>
-            <TableCell align="right">Город</TableCell>
-            <TableCell align="right"></TableCell>
+            <TableCell>Имя фамилия</TableCell>
+
+            <TableCell align="right"> Опл.  Дост.</TableCell>
+
+            <TableCell align="right"> Цена</TableCell>
           </TableRow>
         </TableHead>
 
@@ -58,20 +60,20 @@ export default function AddOrderTable({ orders }) {
             <TableRow 
               onClick={() => navigate(`/OrderDetails/id:`+ row._id + ':'+ row.userId)}
               style={row.arrived ===true?{backgroundColor: "grey" }: {backgroundColor: "white"}}
-                
-                
               key={Math.random()}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
+
+              
               <TableCell
                 component="th"
                 scope="row"
               >
-                {row.firstName} {row.lastName}
+                {row.firstName} {row.lastName} {row.city} <br/>{row.time}
               </TableCell>
-              <TableCell align="right" >{row.city} </TableCell>
 
-              <TableCell align="right">{row.arrived} </TableCell>
+              <TableCell align="right">{row.payed && "Опл."} {row.arrived && "Дост."} </TableCell>
+              <TableCell align="right">{row.price}   </TableCell>
             </TableRow>
           ))}
         </TableBody>

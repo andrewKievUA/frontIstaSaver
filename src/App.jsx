@@ -9,8 +9,9 @@ import Login from "./pages/register/Login";
 import UserHomePage from "./pages/userHomePage/UserHomePage.jsx";
 import AddOrder from "./pages/userHomePage/AddOrder";
 import OrderDetails from "./pages/userHomePage/OrderDetails";
-
 import ConfirmPage from "./pages/register/ConfirmPage";
+import DropShip from "./pages/dropship/DropShip";
+import DropShipCreate from "./pages/dropship/DropShipCreate";
 
 function App() {
   return (
@@ -25,6 +26,8 @@ function App() {
             <Route path="Login" element={<Login />} />
             <Route path="Register/:Confirm" element={<ConfirmPage />} />
             <Route path="Register" element={<Register />} />
+            <Route path="DropShip" element={<DropShip />} />
+            <Route path="DropShipCreate" element={<DropShipCreate />} />
             <Route index element={<Home />}></Route>
           </Route>
         </Routes>

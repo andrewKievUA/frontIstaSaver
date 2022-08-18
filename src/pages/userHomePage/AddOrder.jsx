@@ -3,23 +3,30 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { ErrorMessage } from "@hookform/error-message";
 
 function AddOrder({ cartNumber, name, userId }) {
   let navigate = useNavigate();
-  const routeChange = () => {
-    let path = `/Login`;
-    navigate(path);
-  };
-
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    mode: "onSubmit",
+    reValidateMode: "onChange",
+    resolver: undefined,
+    context: undefined,
+    criteriaMode: "firstError",
+    shouldFocusError: true,
+    shouldUnregister: false,
+    shouldUseNativeValidation: false,
+    delayError: undefined,
+  });
 
-  console.log(errors);
+  const [showLinks, setshowLInks] = React.useState(false);
 
   const onSubmit = async (data) => {
+    console.log(data, userId);
     let response = await fetch("http://localhost:5000/api/AddOrder", {
       method: "POST",
       headers: {
@@ -31,90 +38,94 @@ function AddOrder({ cartNumber, name, userId }) {
     console.log({ ...data });
     let result = await response.json();
     console.log(result.message);
+    navigate(-1);
   };
 
   return (
     <>
       <div>
+        <button
+          type="button3"
+          onClick={() => {
+            setshowLInks(true);
+          }}
+        >
+          {"Добавить три товара "}
+        </button>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <label>ссылка на пользователя  ...заполняет Продавец</label>
+          <label>ссылка на пользователя ...заполняет Продавец</label>
           <input
             type="text"
             {...register("instaLinkCustomer", { required: true })}
           />
 
-          <label>ссылки на товары  ...заполняет Продавец</label>
+          <label>ссылка на товар ...заполняет Продавец</label>
           <input
-            type="text"
+            
             {...register("instaLinkGoods", { required: true })}
           />
 
+          {showLinks && (
+            <>
+              <label>Товар #2 </label>
+              <input type="text" {...register("instaLinkGoods1")} />
+              <label>Товар #3 </label>
+              <input type="text" {...register("instaLinkGoods2")} />
+              <label>Товар #4 </label>
+              <input type="text" {...register("instaLinkGoods3")} />
+            </>
+          )}
+
+          <label>Цена ...заполняет Продавец </label>
           <input
-            type="text"
-            {...register("instaLinkGoods1")}
+            
+            {...register("price", {
+              maxLength: 99,
+            })}
           />
 
-          <input
-            type="text"
-            {...register("instaLinkGoods2")}
-          />
-
-          <input
-            type="text"
-            {...register("instaLinkGoods3")}
-          />
-
+          <br />
+          <br />
           <label> Имя ...заполняет клиент</label>
           <input
             type="text"
             {...register("firstName", {
               maxLength: 99,
+              setValueAs: "",
+              required: false,
             })}
           />
 
-          <label>Фамилия  ...заполняет клиент</label>
+          <label>Фамилия ...заполняет клиент</label>
           <input
-            type="text"
+            
             {...register("lastName", {
               maxLength: 99,
+              setValueAs: "",
+              required: false,
             })}
           />
 
-          <label>Город  ...заполняет клиент</label>
+          <label>Город ...заполняет клиент</label>
           <input
-            type="text"
+            
             {...register("city", {
               maxLength: 99,
             })}
           />
 
-          <label>Отделение Новой Почты  ...заполняет клиент</label>
+          <label>Отделение Новой Почты ...заполняет клиент</label>
           <input
             type="text"
             {...register("postNumer", {
               maxLength: 99,
             })}
           />
-          {errors.password ? (
-            <label className="labelred">
-              Заполните поле минимум 6 символов
-            </label>
-          ) : (
-            <></>
-          )}
 
-          <label>Телефон   ...заполняет клиент</label>
+          <label>Телефон ...заполняет клиент</label>
           <input
             type="phone"
             {...register("telephone", {
-              maxLength: 99,
-            })}
-          />
-
-          <label>Цена   ...заполняет Продавец </label>
-          <input
-            type="text"
-            {...register("price", {
               maxLength: 99,
             })}
           />
@@ -130,6 +141,7 @@ function AddOrder({ cartNumber, name, userId }) {
         </form>
       </div>
       <button onClick={() => navigate(-1)}>Назад</button>
+      <ErrorMessage errors={errors} name="singleErrorInput" />
     </>
   );
 }
